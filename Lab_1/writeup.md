@@ -9,6 +9,10 @@
 - [Discussion](#discussion)
 - [Summary](#summary)
 
+## Authors
+Author: Benjamin Sage
+Lab Partners: Marc Huerta and Devorah Simon
+
 ## Abstract
 
 ## Introduction
