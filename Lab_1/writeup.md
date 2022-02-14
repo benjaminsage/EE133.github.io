@@ -1,4 +1,8 @@
-<h1 align="center"> Lab 1: The Secret Life of Passive Components</h1>
+<h1 align="center">
+	Lab 1: The Secret Life of Passive Components
+	and
+	We meet a new friend, the VNA
+</h1>
 
 ## Table of Contents
 - [Authors](#authors)
