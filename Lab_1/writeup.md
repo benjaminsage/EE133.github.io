@@ -48,11 +48,11 @@ The additional theoretical components are known as **pararasitics**.
 
 **Figure 1: Model of a real resistor**
 
-![](capacitor-real.png)
+![](images/capacitor-real.png)
 
 **Figure 2: Model of a real capacitor**
 
-![](inductor-real.png)
+![](images/inductor-real.png)
 
 **Figure 3: Model of a real inductor**
 
