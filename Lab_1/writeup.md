@@ -34,7 +34,7 @@ There are three principle passive components in electronic circuit analysis:
 
 Their impedance formulas follow, with R standing for Resistor, C for Capacitor, and I for Inductor:
 
-<img src="https://render.githubusercontent.com/render/math?math=Z_R = R">
+<img src="https://render.githubusercontent.com/render/math?math=Z_R = R" align="center">
 <img src="https://render.githubusercontent.com/render/math?math=Z_C = \frac{-j}{\omega C}">
 <img src="https://render.githubusercontent.com/render/math?math=Z_L = j \omega L">
 
