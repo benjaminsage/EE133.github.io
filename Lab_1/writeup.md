@@ -32,11 +32,15 @@ There are three principle passive components in electronic circuit analysis:
 - Capacitor
 - Inductor
 
-Their impedance formulas follow, with R standing for Resistor, C for Capacitor, and I for Inductor:
+Their impedance formulas follow, with R standing for Resistor, C for Capacitor, and L for Inductor:
 
 <img src="https://render.githubusercontent.com/render/math?math=Z_R = R" align="center">
 <img src="https://render.githubusercontent.com/render/math?math=Z_C = \frac{-j}{\omega C}">
 <img src="https://render.githubusercontent.com/render/math?math=Z_L = j \omega L">
+
+These are, however, theoretical only. Every resistor, capacitor, and inductor, in real life, actually contains all three of these components. A real resistor actually has a theoretical resistor, capacitor, and inductor, as do real capacitors and inductors.
+
+The additional theoretical components are known as **pararasitics**.
 
 ## Experimental Setup
 
