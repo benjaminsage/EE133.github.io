@@ -42,6 +42,20 @@ These are, however, theoretical only. Every resistor, capacitor, and inductor, i
 
 The additional theoretical components are known as **pararasitics**.
 
+### Parasitics
+
+![](resistor-real.png)
+
+**Figure 1: Model of a real resistor**
+
+![](capacitor-real.png)
+
+**Figure 2: Model of a real capacitor**
+
+![](inductor-real.png)
+
+**Figure 3: Model of a real inductor**
+
 ## Experimental Setup
 
 ## Measurements and Results
