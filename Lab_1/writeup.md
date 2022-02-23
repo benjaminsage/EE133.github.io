@@ -44,7 +44,7 @@ The additional theoretical components are known as **pararasitics**.
 
 ### Parasitics
 
-![](resistor-real.png)
+![](images/resistor-real.png)
 
 **Figure 1: Model of a real resistor**
 
