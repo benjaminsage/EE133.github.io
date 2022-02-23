@@ -44,7 +44,21 @@ The additional theoretical components are known as **pararasitics**.
 
 ### Parasitics
 
+All three real components contain all three theoretical components.
+
+#### Resistor
+
+A real resistor has both leading and trailing resistance and inductance. It has an internal resistor and inductor as well, in addition to a parallel capacitor.
+
+#### Capacitor
+
+A real capacitor has leading and trailing resistors and inductors. It has an internal inductor and resistor, in addition to a parallel capacitor and resistor.
+
 ![](images/resistor-real.png)
+
+#### Inductor
+
+A real inductor has no leading and trailing parasitic components. It has an internal capacitor in parallel with a resistor and a parellel resistor and inductor.
 
 **Figure 1: Model of a real resistor**
 
