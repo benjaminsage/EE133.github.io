@@ -1,9 +1,5 @@
 <h1 align="center">
-	Lab 1: The Secret Life of Passive Components
-	<br/>
-	and
-	<br/>
-	We meet a new friend, the VNA
+	Lab 1: Measuring “parasitic” properties of passive components with a VNA
 </h1>
 
 ## Table of Contents
@@ -27,7 +23,7 @@ Passive components in electronics are devices which only receive energy to be ma
 
 ## Introduction
 
-There are three principle passive components in electronic circuit analysis:
+There are three principle passive components in electronic circuit design and analysis:
 - Resistor
 - Capacitor
 - Inductor

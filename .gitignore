@@ -1,0 +1,7 @@
+*
+!*/
+!**/*.pdf
+!**/*.tex
+!**/*.md
+!**/.gitignore
+!**/Makefile
