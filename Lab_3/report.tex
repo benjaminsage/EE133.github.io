@@ -19,7 +19,7 @@
 
 \begin{document}
 
-\title{Lab 2 -- Generating and Measuring Waveforms}
+\title{Lab 3 -- Generating and Measuring Waveforms}
 
 \author{Benjamin Sage\\Lab Partners: Marc Huerta, Devorah Simon}
 
@@ -34,7 +34,7 @@
 \maketitle
 
 \begin{abstract}
-A microprocessor was used to generate three distinct types of waveforms at three separate frequencies. The waveforms were then analyzed using an oscilloscope. Finally, a spectrum analyzer ran a fourier transform on the wave to verify the frequency.
+A MOSFET mixer was built and analyzed using a spectrum analyzer. Several important uses and properties of this mixer emerged during the study.
 \end{abstract}
 
 % \begin{IEEEkeywords}
@@ -42,50 +42,58 @@ A microprocessor was used to generate three distinct types of waveforms at three
 % \end{IEEEkeywords}
 
 \section{Introduction}
-\IEEEPARstart{M}{odern} wave form generation often has two components:
+\IEEEPARstart{A}{} mixer is a three-port electronic device that modulates a waveform's frequency without changing the amplitude or phase.
 
-\begin{itemize}
-    \item A clock generator
-    \item A microcontroller
-\end{itemize}
+\begin{figure}[h]
+\centering
+\begin{circuitikz}
+\draw node[mixer] (mix) {};
+\draw[->] (mix) -- ++(2, 0) node[midway, label=IF] {};
+\draw[<-] (mix) -- ++(-2, 0) node[midway, label=RF] {};
+\draw[<-] (mix) -- ++(0, -2) node[midway, label=right:LO] {};
+\end{circuitikz}
+\caption{An Ideal Mixer}
+\end{figure}
 
-This setup has the advantage of being low-cost and also generally reliable.
+The mixer has two input ports. LO, or local oscillator, gets added to or subtracted from RF to generate new frequencies, which are sent to the output IF, or intermediate frequency.
 
-In this lab, we will use an Si5351 clock generator and ItsyBitsy microcontroller to generate waveforms which can be analyzed on an oscillocsope. With just this setup, we will be able to generate several different frequencies of waveform.
+The mixer built in this lab is called a double-balanced FET ring mixer. It utilizes a ring of four MOSFET transistors to mix the LO with the RF. A schematic can be seen in Fig. 2.
 
-The microcontroller will be programmed in a Python-like language called CircuitPython, which is open-source an easy to pick up for beginners.
-
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{circuit}
+\caption{Double-balanced FET Mixer}
+\label{fig_1}
+\end{figure}
 
 \section{Experimental Setup}
 
-The setup for this lab is a bit technical on both the signal generator and microprocessor sides. So I will enumerate the steps.
-
+The setup for this experiment consisted of 2 parts:
 \begin{enumerate}
-    \item Gathered materials: Adafruit ItsyBitsy M4 Express, Adafruit Si5351A Clock Generator, breadboard, jumper cables.
-    \item Soldered SMA connectors to both the ItsyBitsy and the Si5351A.
-    \item Attached both ItsyBitsy and Si5351A to breadboard.
-    \item Connected appropriate pins between ItsyBitsy and Si5351A using jumper cables. (Correct pins can be seen in Fig. 1. and {\bf{Table 1}}.)
-    \item Downloaded the Mu Editor for programming the ItsyBitsy microcontroller.
-    \item Updated the bootloader on the ItsyBitsy.
-    \item Installed CircuitPython to the ItsyBitsy.
+    \item {\bf{Wave Generator}} Used to produce both the local oscillator (LO) and radio frequency (RF) signals.
+    \item {\bf{Spectrum Analyzer}} Used to measure the intermediate frequency (IF) output.
 \end{enumerate}
+
+\section{Measurements and Results}
+
+To begin, we mixed a $2 \, \text{MHz}$ radio frequency signal with a $10 \, \text{MHz}$ local oscillator frequency. As shown in {\bf{Table 1}} and Fig. 3, we achieved the expected result of sums and differences of the frequencies in the intermedite frequency.
+
+Interstingly, we also get harmonic frequencies around $28$ and $32$ MHz.
 
 \begin{table}
 \renewcommand{\arraystretch}{2.2}
 \begin{center}
-\caption{ItsyBitsy and Si5351A Port Connections}
+\caption{Mixer Port Frequencies}
 \label{tab1}
 \begin{tabular}{c c}
 \hline
-\bfseries ItsyBitsy Pin & \bfseries Si5351A Pin\\
+\bfseries Port & \bfseries Frequency\\
 \hline
-3V & Vin\\
+RF & $2 \, \text{MHz}$\\
 \hline
-GND & GND\\ 
+LO & $10 \, \text{MHz}$\\ 
 \hline
-SCL & SCL\\
-\hline 
-SDA& SDA\\
+IF & $10 \pm 2 \, \text{MHz}$\\
 \hline
 \end{tabular}
 \end{center}
@@ -93,99 +101,67 @@ SDA& SDA\\
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=2.5in]{cables}
-\caption{ItsyBitsy, Si5351A, and breadboard connected using appropriate ports, as described in the documentation.}
+\includegraphics[width=2.3in]{first}
+\caption{Intermediate frequency spectrum, with peaks around 8 and 12 MHz.}
 \label{fig_1}
 \end{figure}
 
-\section{Measurements and Results}
+\subsection{Changing the Amplitude of RF}
 
-Using the setup, we generated three different waveforms:
+We can modulate the amplitude of the radio frequency signal to see if it has an effect on output. See the results in Fig. 4. A larger amplitude results both in greater gain as well as greater noise.
 
-\begin{itemize}
-    \item $112.5\,\text{MHz}$, seen in Fig. 2(a).
-    \item $13.55\,\text{MHz}$, seen in Fig. 2(b).
-    \item $10.76\,\text{kHz}$, seen in Fig. 2(c).
-\end{itemize}
+\begin{figure*}[!t]
+\centering
+\subfloat[]{\includegraphics[width=2.5in]{second}%
+\label{fig_first_case}}
+\hfil
+\subfloat[]{\includegraphics[width=2.5in]{third}%
+\label{fig_third_case}}
+\caption{Increasing the amplitude of RF increases the gain as well as the noise. In (a), the amplitude is $0.5\,\text{V}_{pp}$, while in (b), it is $1.5\,\text{V}_{pp}$}
+\label{fig_si}
+\end{figure*}
 
-Each waveform was visualized using the oscilloscope. We then compared the measured frequencies from the nominal frequencies, and computed the error. The results are in {\bf{Table 2}}.
+\subsection{Changing the Amplitude of LO}
+
+We can also modulate the amplitude of the local oscillator signal to see if it has an effect on output. See the results in Fig. 5. A larger amplitude again results both in greater gain as well as greater noise.
+
+\begin{figure*}[!t]
+\centering
+\subfloat[]{\includegraphics[width=2.5in]{fourth}%
+\label{fig_first_case}}
+\hfil
+\subfloat[]{\includegraphics[width=2.5in]{fifth}%
+\label{fig_third_case}}
+\caption{Increasing the amplitude of LO increases the gain as well as the noise. In (a), the amplitude is $0.5\,\text{V}_{pp}$, while in (b), it is $3\,\text{V}_{pp}$}
+\label{fig_sim}
+\end{figure*}
 
 \begin{table}
 \renewcommand{\arraystretch}{2.2}
 \begin{center}
-\caption{Oscilliscope Waveform Frequencies}
+\caption{Effect of Changing Amplitude of LO or RF}
 \label{tab1}
 \begin{tabular}{c c c}
 \hline
-\bfseries Nominal (Hz) & \bfseries Actual (Hz) & \bfseries Error\\
+\bfseries Amplitude & \bfseries Gain & \bfseries Noise\\
 \hline
-$1.125 \times 10^{8}$ & $1.119 \times 10^{8} $ & 0.5\%\\
+$\uparrow$ & $\uparrow$ & $\uparrow$\\
 \hline
-$1.355 \times 10^{7}$ & $1.351 \times 10^{7}$ & 0.3\%\\ 
-\hline
-$1.076 \times 10^{4}$ & $1.069 \times 10^{4}$ & 0.7\%\\
+$\downarrow$ & $\downarrow$ & $\downarrow$\\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
-\begin{table}
-\renewcommand{\arraystretch}{2.2}
-\begin{center}
-\caption{Spectrum Analyzer Frequency Peaks}
-\label{tab1}
-\begin{tabular}{c c c}
-\hline
-\bfseries Nominal (Hz) & \bfseries Actual (Hz) & \bfseries Error\\
-\hline
-$1.125 \times 10^{8}$ & $1.120 \times 10^{8} $ & 0.4\%\\
-\hline
-$1.355 \times 10^{7}$ & $1.356 \times 10^{7}$ & 0.1\%\\ 
-\hline
-$1.076 \times 10^{4}$ & $1.069 \times 10^{4}$ & 0.7\%\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\begin{figure*}[!t]
-\centering
-\subfloat[]{\includegraphics[width=2in]{113}%
-\label{fig_first_case}}
-\hfil
-\subfloat[]{\includegraphics[width=2in]{14}%
-\label{fig_second_case}}
-\hfil
-\subfloat[]{\includegraphics[width=2in]{11}%
-\label{fig_third_case}}
-\caption{Waveform outputs, as seen with the oscilloscope. (a) $112.5 \,\text{MHz}$. (b) $13.55 \, \text{MHz}$. (c) $10.76 \, \text{kHz}$. Deviations from nominal frequencies can be seen in {\bf{Table 2}}.}
-\label{fig_sim}
-\end{figure*}
-
-\begin{figure*}[!t]
-\centering
-\subfloat[]{\includegraphics[width=2in]{113f}%
-\label{fig_first_case}}
-\hfil
-\subfloat[]{\includegraphics[width=2in]{14f}%
-\label{fig_second_case}}
-\hfil
-\subfloat[]{\includegraphics[width=2in]{11f}%
-\label{fig_third_case}}
-\caption{Frequency spectra, as seen with the spectrum analyzer. (a) $112.5 \,\text{MHz}$. (b) $13.55 \, \text{MHz}$. (c) $10.76 \, \text{kHz}$. Deviations from nominal peak frequencies can be seen in {\bf{Table 3}}.}
-\label{fig_sim}
-\end{figure*}
-
-\section{Analysis}
-
-After measuring the on the oscilliscope, we analyzed the waves using a spectrum analyzer. These Fourier-transformed spectra are available in Fig. 3.
-The data comparing the measured peak frequencies to the nominal waveform frequencies are also available in {\bf{Table 3}}.
+It is assumed that this relation will cease to hold at a certain point. But this exercise is left to the reader.
 
 \section{Conclusion}
 
-This lab explored wave form generation, visualization, and analysis using a simple and cheap setup. A clock generator and microcontroller were the essential components.
+In this lab, we built a complex passive electronic component called a mixer. Our particular mixer utilized a transistor ring, and thus is dubbed a ``MOSFET mixer.''
 
-Despite this primitive setup, we found that the mesaured frequencies in all 6 tests we ran deviated from the nominal frequencies by less than 1\% each time. This is a remarkable result---and a testament to technological progress.
+Using our mixer, we were able to explore the way that signals can be added and subtracted together to get an output waveform with a new frequency.
+
+Lastly, we discovered the amplitude-gain-noise relation. An increase in the amplitude of either input signal results in both more gain and more noise in the output signal.
 
 \section*{Acknowledgments}
 Special thanks to my lab partners Devorah and Marc for all their help and support. They have lent several of their figures to match the data which I collected in my lab notebook. Thanks also to Yifan for inspiring me to dust off my \LaTeX skills, as well as helping with several of the Tikz schematics. Finally, thanks to Joanna and Steve for their endless patience in my quest to learn electronics.
